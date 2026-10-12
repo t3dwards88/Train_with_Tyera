@@ -12,6 +12,6 @@ var RESET_TOOLKIT_CONFIG = {
   // (see README.md, "Track submissions in a Google Sheet"). Leave the
   // placeholder in place and submissions simply won't be logged anywhere,
   // the tools still work fine without it.
-  SHEET_WEB_APP_URL: 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'
+  SHEET_WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbzfAPn84aym_V4mdkCL60UdsukHYGHBFkyEzwVQcKF5eBjRUQOWAp6pbbOMam6Q5-9WNA/exec'
 
 };
