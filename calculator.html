@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Protein Calculator — Reset Toolkit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="toolkit.css">
+</head>
+<body>
+
+<header class="toolkit-header">
+  <a class="brand" href="index.html">Reset Toolkit</a>
+  <nav>
+    <a href="assessment.html">Plan builder</a>
+    <a href="calculator.html" class="active">Protein calculator</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <p class="kicker">Client tool</p>
+    <h1>Protein and fasting window calculator</h1>
+    <p>Enter bodyweight and a goal to get a daily protein target, then split it across meals inside an eating window.</p>
+  </div>
+
+  <div class="card">
+    <form id="calcForm">
+
+      <div class="field">
+        <label for="weight">Bodyweight <span class="hint">lbs</span></label>
+        <input type="number" id="weight" min="60" max="500" step="1" placeholder="160" required>
+      </div>
+
+      <div class="field">
+        <label for="goal">Goal</label>
+        <select id="goal">
+          <option value="0.7">General health &mdash; 0.7g per lb</option>
+          <option value="0.9">Fat loss, preserve muscle &mdash; 0.9g per lb</option>
+          <option value="1.0">Build muscle / strength training &mdash; 1.0g per lb</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="meals">Meals per day</label>
+        <select id="meals">
+          <option value="1">1 meal</option>
+          <option value="2">2 meals</option>
+          <option value="3" selected>3 meals</option>
+          <option value="4">4 meals</option>
+          <option value="5">5 meals</option>
+          <option value="6">6 meals</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="fasting">Intermittent fasting window</label>
+        <select id="fasting">
+          <option value="0">No fasting &mdash; standard ~12 hour window</option>
+          <option value="14">14:10 &mdash; 10 hour eating window</option>
+          <option value="16" selected>16:8 &mdash; 8 hour eating window</option>
+          <option value="18">18:6 &mdash; 6 hour eating window</option>
+          <option value="20">20:4 &mdash; 4 hour eating window</option>
+          <option value="23">OMAD &mdash; 1 hour eating window</option>
+          <option value="custom">Custom fasting hours</option>
+        </select>
+      </div>
+
+      <div class="field" id="customFastField" hidden>
+        <label for="customFast">Fasting hours <span class="hint">0&ndash;23</span></label>
+        <input type="number" id="customFast" min="0" max="23" step="1" value="16">
+      </div>
+
+      <div class="field">
+        <label for="startTime">First meal / eating window starts at</label>
+        <input type="time" id="startTime" value="12:00">
+      </div>
+
+      <p class="error-msg" id="errMsg">Enter a valid bodyweight to calculate.</p>
+
+      <button type="submit" class="btn-primary">Calculate</button>
+    </form>
+  </div>
+
+  <div class="card results" id="results" hidden>
+    <div class="result-top">
+      <div>
+        <p class="result-label">Daily protein target</p>
+        <p class="result-big" id="dailyTotal">0g</p>
+      </div>
+      <div>
+        <p class="result-label">Eating window</p>
+        <p class="result-sub" id="windowSummary"></p>
+      </div>
+    </div>
+
+    <div id="warningBox" class="warning-box" hidden></div>
+
+    <h3>Meal breakdown</h3>
+    <div id="mealList"></div>
+
+    <p class="disclaimer">General fitness guidance, not individualized medical or nutrition advice. Anyone with a kidney condition, diabetes, or other health concern, or who is pregnant or nursing, should check these numbers with a doctor or registered dietitian before following them.</p>
+  </div>
+
+</div>
+<script src="calculator.js"></script>
+</body>
+</html>

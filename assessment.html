@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plan Builder — Reset Toolkit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="toolkit.css">
+</head>
+<body>
+
+<header class="toolkit-header wide">
+  <a class="brand" href="index.html">Reset Toolkit</a>
+  <nav>
+    <a href="assessment.html" class="active">Plan builder</a>
+    <a href="calculator.html">Protein calculator</a>
+  </nav>
+</header>
+
+<div class="wrap wide">
+
+  <div class="hero">
+    <p class="kicker">Working prototype</p>
+    <h1>Turn one intake form into a meal plan, shopping list, and workout week.</h1>
+    <p>Answer a few questions the way a client would. This demo generates a 7-day Whole30-style, high-protein, low-fat plan built around what you actually have time, equipment, and appetite for.</p>
+  </div>
+
+  <div id="wizard">
+    <div class="progress" id="progressDots"></div>
+    <p class="step-label" id="stepLabel"></p>
+
+    <div class="card">
+      <form id="intakeForm">
+
+        <section class="step visible" data-step="1">
+          <h2>The basics</h2>
+          <p class="sub">So the plan fits the household, not just one person.</p>
+          <div class="field">
+            <label for="name">First name</label>
+            <input type="text" id="name" placeholder="Jordan">
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="age">Age</label>
+              <input type="number" id="age" min="16" max="90" placeholder="34">
+            </div>
+            <div class="field">
+              <label for="eaters">People eating this plan <span class="hint">incl. you</span></label>
+              <input type="number" id="eaters" min="1" max="8" value="1">
+            </div>
+          </div>
+          <div class="field">
+            <label for="kids">Do you have kids at home?</label>
+            <div class="choice-group" id="kidsGroup">
+              <div class="choice" data-value="no">No kids</div>
+              <div class="choice" data-value="yes-young">Yes, young kids</div>
+              <div class="choice" data-value="yes-older">Yes, older kids/teens</div>
+              <div class="choice" data-value="yes-both">Yes, a mix of ages</div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="schedule">What does a typical weekday look like?</label>
+            <select id="schedule">
+              <option value="">Select one</option>
+              <option value="full-time">Full-time job, out of the house</option>
+              <option value="shift">Shift work / irregular hours</option>
+              <option value="home">Mostly home during the day</option>
+              <option value="mixed">A mix, varies by day</option>
+            </select>
+          </div>
+          <p class="error-msg" id="err1">Add your age and how many people are eating this plan.</p>
+        </section>
+
+        <section class="step" data-step="2">
+          <h2>Food and kitchen</h2>
+          <p class="sub">This shapes which meals make the list and what lands on the shopping list.</p>
+          <div class="field">
+            <label for="allergies">Allergies or anything you absolutely can't eat <span class="hint">comma separated</span></label>
+            <input type="text" id="allergies" placeholder="e.g. shellfish, tree nuts">
+          </div>
+          <div class="field">
+            <label for="dislikes">Foods you just don't like <span class="hint">comma separated</span></label>
+            <input type="text" id="dislikes" placeholder="e.g. mushrooms, fish">
+          </div>
+          <div class="field">
+            <label for="cooktime">How much time can you realistically give dinner most nights?</label>
+            <div class="choice-group" id="cooktimeGroup">
+              <div class="choice" data-value="15">15 min or less</div>
+              <div class="choice" data-value="30">About 30 min</div>
+              <div class="choice" data-value="45">45&ndash;60 min</div>
+              <div class="choice" data-value="batch">I'd rather batch cook once</div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="whole30">Have you done Whole30 or a similar reset before?</label>
+            <select id="whole30">
+              <option value="">Select one</option>
+              <option value="first">No, this would be my first time</option>
+              <option value="done-well">Yes, and it went well</option>
+              <option value="done-hard">Yes, and it was tough to stick with</option>
+            </select>
+          </div>
+          <p class="error-msg" id="err2">Let me know your cook time so I can size the meals right.</p>
+        </section>
+
+        <section class="step" data-step="3">
+          <h2>Your goal</h2>
+          <p class="sub">The plan leans the same direction either way, but this changes the framing and pace.</p>
+          <div class="field">
+            <label for="goal">Main goal right now</label>
+            <div class="choice-group" id="goalGroup">
+              <div class="choice" data-value="weight-loss">Lose weight</div>
+              <div class="choice" data-value="energy">More energy / feel better</div>
+              <div class="choice" data-value="muscle">Build strength</div>
+              <div class="choice" data-value="reset">Reset habits after a rough stretch</div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="timeframe">Timeframe in mind</label>
+            <select id="timeframe">
+              <option value="">Select one</option>
+              <option value="30">Just the 30 days</option>
+              <option value="90">30 days, then keep building for 90</option>
+              <option value="open">Open-ended, however long it takes</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="blockers">What's derailed you before?</label>
+            <textarea id="blockers" placeholder="e.g. no time to cook after work, snacking at night, cooking for picky kids too"></textarea>
+          </div>
+          <p class="error-msg" id="err3">Pick a main goal so the plan has a direction.</p>
+        </section>
+
+        <section class="step" data-step="4">
+          <h2>Workouts</h2>
+          <p class="sub">Builds the weekly training split around what's actually available to you.</p>
+          <div class="row2">
+            <div class="field">
+              <label for="wodays">Days per week you can train</label>
+              <select id="wodays">
+                <option value="">Select one</option>
+                <option value="2">2 days</option>
+                <option value="3">3 days</option>
+                <option value="4">4 days</option>
+                <option value="5">5 days</option>
+                <option value="6">6 days</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="wotime">Time per session</label>
+              <select id="wotime">
+                <option value="">Select one</option>
+                <option value="20">15&ndash;20 min</option>
+                <option value="30">30 min</option>
+                <option value="45">45 min</option>
+                <option value="60">60+ min</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="equipment">What do you have access to?</label>
+            <div class="choice-group" id="equipGroup">
+              <div class="choice" data-value="none">Bodyweight only</div>
+              <div class="choice" data-value="dumbbells">Dumbbells at home</div>
+              <div class="choice" data-value="bands">Resistance bands</div>
+              <div class="choice" data-value="gym">Full gym access</div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="injuries">Any injuries or limitations to work around <span class="hint">optional</span></label>
+            <input type="text" id="injuries" placeholder="e.g. bad knee, lower back issues">
+          </div>
+          <p class="error-msg" id="err4">Pick your days, time, and equipment so the plan fits your week.</p>
+        </section>
+
+        <section class="step" data-step="5">
+          <h2>Review before I build it</h2>
+          <p class="sub">Double check this, then generate the plan.</p>
+          <ul class="review-list" id="reviewList"></ul>
+        </section>
+
+      </form>
+    </div>
+
+    <div class="nav-row">
+      <button type="button" class="btn-ghost" id="backBtn">Back</button>
+      <button type="button" class="btn-primary" id="nextBtn">Continue</button>
+    </div>
+  </div>
+
+  <div id="results">
+    <div class="results-head">
+      <h2 id="resultsTitle" style="font-size:1.6rem; font-weight:500;">Your plan</h2>
+      <p class="sub" style="color:var(--ink-soft); margin-top:0.4rem;">Whole30-compliant, high-protein, low-fat. Rotates every 7 days so nothing repeats back to back.</p>
+    </div>
+    <div class="tabs">
+      <button type="button" class="tab-btn active" data-tab="meals">Meal plan</button>
+      <button type="button" class="tab-btn" data-tab="shopping">Shopping list</button>
+      <button type="button" class="tab-btn" data-tab="workout">Workout plan</button>
+    </div>
+    <div class="tab-panel active" id="panel-meals"></div>
+    <div class="tab-panel" id="panel-shopping"></div>
+    <div class="tab-panel" id="panel-workout"></div>
+    <div class="note-box">This is a planning tool, not medical advice. Anyone with a health condition, on medication, or pregnant or nursing should run a new way of eating or a new workout routine by their doctor first.</div>
+    <div class="foot-actions">
+      <span class="small" id="forName"></span>
+      <button type="button" class="btn-ghost" id="startOverBtn">Start over</button>
+    </div>
+  </div>
+
+</div>
+
+<script src="assessment.js"></script>
+</body>
+</html>
