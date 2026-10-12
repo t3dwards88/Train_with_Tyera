@@ -234,3 +234,27 @@ button {
 .calc-meal-row .meal-grams { background: var(--sage-bg); color: var(--sage); padding: 0.25rem 0.7rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; }
 
 .disclaimer { font-size: 0.8rem; color: var(--ink-soft); line-height: 1.55; margin: 0; }
+
+/* ---------- passcode gate ---------- */
+
+.gate-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.gate-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 2rem;
+  max-width: 360px;
+  width: 100%;
+}
+.gate-card h2 { font-size: 1.3rem; font-weight: 500; margin-bottom: 0.5rem; }
+.gate-card .sub { color: var(--ink-soft); font-size: 0.9rem; line-height: 1.5; margin: 0 0 1.25rem; }
+.gate-card .btn-primary { width: 100%; }

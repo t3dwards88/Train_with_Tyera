@@ -100,6 +100,32 @@
 
     results.hidden = false;
     results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    logCalculatorSubmission({
+      weight: weight,
+      goal: document.getElementById('goal').value,
+      meals: meals,
+      fasting: fastingSelect.value,
+      startTime: startTimeStr,
+      dailyProtein: dailyProtein,
+      windowHours: windowHours
+    });
+  }
+
+  function logCalculatorSubmission(data) {
+    if (typeof RESET_TOOLKIT_CONFIG === 'undefined') return;
+    var url = RESET_TOOLKIT_CONFIG.SHEET_WEB_APP_URL;
+    if (!url || url.indexOf('PASTE_YOUR') > -1) return;
+
+    var body = new URLSearchParams();
+    body.append('formType', 'calculator');
+    Object.keys(data).forEach(function (key) {
+      body.append(key, data[key]);
+    });
+
+    fetch(url, { method: 'POST', mode: 'no-cors', body: body }).catch(function () {
+      /* logging is best-effort; a failed request should never block showing the result */
+    });
   }
 
   form.addEventListener('submit', calculate);

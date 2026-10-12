@@ -13,9 +13,34 @@ separate demos. No build step, no dependencies, no backend.
   calculator with meals-per-day and intermittent-fasting window options
 - `toolkit.css` — shared colors, type, header/nav, and component styles used
   by every page
+- `config.js` — the one file you edit to set the beta passcode and connect
+  a Google Sheet (see below)
+- `gate.js` — the passcode lock screen shown on every page
+- `google-apps-script.gs` — code to paste into Google Sheets so it can
+  receive submissions (see below)
 
 Every page loads the same `toolkit.css`, so updating a color, font, or
 button style in one place updates the whole toolkit.
+
+## The passcode lock
+
+Every page is covered by a simple lock screen until the right code is
+entered. To set or change the code, open `config.js` and edit the
+`PASSCODE` value, then push the change.
+
+**Be clear-eyed about what this is and isn't.** It stops someone from
+clicking a forwarded link and wandering in, which covers the beta-testing
+case. It is not real security: the code lives in a plain text file anyone
+can open (`config.js`), so someone who knows to check a page's source code
+can find it. For an invite-only beta that's normally enough. If you ever
+need actual access control (restricted to specific people, not just
+anyone with the code), that requires moving off plain GitHub Pages to a
+host like Netlify or Cloudflare Pages that can gate access by email
+invite — a bigger step, and not needed for beta testing.
+
+Once someone enters the correct code, their browser remembers it (so they
+won't be asked again on that device), the same device/browser repeating
+visits.
 
 ## Run it locally
 
@@ -63,6 +88,37 @@ Create the empty `reset-toolkit` repo on GitHub first, or use
 3. No build command or output directory needed — it's static. Accept the
    defaults and deploy.
 4. Both auto-redeploy on every push to `main`.
+
+## Track submissions in a Google Sheet
+
+By default, nothing is saved. Both tools can log every submission to a
+Google Sheet instead, so you can open it anytime and see what clients
+entered and what they got.
+
+**Set it up once:**
+
+1. Create a new Google Sheet. Name it whatever you want, e.g. "Reset
+   Toolkit Submissions."
+2. In that Sheet, go to **Extensions → Apps Script**.
+3. Delete whatever's in the editor, and paste in the entire contents of
+   `google-apps-script.gs` from this repo.
+4. Click **Deploy → New deployment**.
+5. Click the gear icon next to "Select type" and choose **Web app**.
+6. Set **Execute as** to "Me," and **Who has access** to "Anyone." (This
+   sounds looser than it is — it only allows this one script to receive
+   data, not to expose your Sheet itself. Your Sheet stays private.)
+7. Click **Deploy**, authorize it when Google asks, and copy the URL it
+   gives you (it ends in `/exec`).
+8. Open `config.js` in your site files and paste that URL into
+   `SHEET_WEB_APP_URL`, replacing the placeholder text.
+9. Push the updated `config.js` to GitHub.
+
+That's it. The Sheet will automatically grow two tabs, "Assessment" and
+"Calculator," the first time each tool is used, with column headers
+already filled in.
+
+If you skip this setup, both tools still work exactly as before. They
+just silently do nothing extra; nothing breaks.
 
 ## Making changes
 

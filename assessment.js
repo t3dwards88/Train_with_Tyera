@@ -487,10 +487,32 @@ function generatePlan(){
   renderShoppingList(bfSel.concat(luSel, diSel, snSel), parseFloat(answers.eaters) || 1);
   renderWorkoutPlan(answers.equipment, answers.wodays, answers.wotime, answers.injuries);
 
+  var resultSummary = 'Day 1 - Breakfast: ' + bfSel[0].name + '; Lunch: ' + luSel[0].name +
+    '; Dinner: ' + diSel[0].name + '; Snack: ' + snSel[0].name +
+    '; Workout: ' + answers.wodays + ' days/week, ' + answers.equipment + ' equipment';
+  logAssessmentSubmission(resultSummary);
+
   document.getElementById('forName').textContent = answers.name ? ('Built for ' + answers.name) : '';
   document.getElementById('wizard').style.display = 'none';
   document.getElementById('results').style.display = 'block';
   window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function logAssessmentSubmission(resultSummary){
+  if (typeof RESET_TOOLKIT_CONFIG === 'undefined') return;
+  var url = RESET_TOOLKIT_CONFIG.SHEET_WEB_APP_URL;
+  if (!url || url.indexOf('PASTE_YOUR') > -1) return;
+
+  var body = new URLSearchParams();
+  body.append('formType', 'assessment');
+  Object.keys(answers).forEach(function(key){
+    body.append(key, answers[key] === null || answers[key] === undefined ? '' : answers[key]);
+  });
+  body.append('resultSummary', resultSummary);
+
+  fetch(url, { method: 'POST', mode: 'no-cors', body: body }).catch(function(){
+    /* logging is best-effort; a failed request should never block the client's plan from showing */
+  });
 }
 
 document.querySelectorAll('.tab-btn').forEach(function(btn){
