@@ -258,3 +258,19 @@ button {
 .gate-card h2 { font-size: 1.3rem; font-weight: 500; margin-bottom: 0.5rem; }
 .gate-card .sub { color: var(--ink-soft); font-size: 0.9rem; line-height: 1.5; margin: 0 0 1.25rem; }
 .gate-card .btn-primary { width: 100%; }
+.gate-input-wrap { position: relative; }
+.gate-input-wrap input { padding-right: 3.5rem; }
+.gate-toggle {
+  position: absolute;
+  right: 0.4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+}
+.gate-toggle:hover { color: var(--plum); }

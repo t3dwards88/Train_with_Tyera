@@ -25,7 +25,9 @@ function showStep(n){
   document.querySelectorAll('.step').forEach(function(s){
     s.classList.toggle('visible', parseInt(s.dataset.step,10) === n);
   });
-  document.getElementById('backBtn').disabled = (n === 1);
+  var backBtn = document.getElementById('backBtn');
+  backBtn.disabled = false;
+  backBtn.textContent = (n === 1) ? 'Back to tools' : 'Back';
   document.getElementById('nextBtn').textContent = (n === TOTAL_STEPS) ? 'Generate my plan' : 'Continue';
   if (n === TOTAL_STEPS) buildReview();
   renderDots();
@@ -93,7 +95,10 @@ document.getElementById('nextBtn').addEventListener('click', function(){
 });
 
 document.getElementById('backBtn').addEventListener('click', function(){
-  if (currentStep === 1) return;
+  if (currentStep === 1){
+    window.location.href = 'index.html';
+    return;
+  }
   currentStep--;
   showStep(currentStep);
 });
@@ -531,6 +536,6 @@ document.getElementById('startOverBtn').addEventListener('click', function(){
   showStep(1);
 });
 
-renderDots();
+showStep(currentStep);
 
 })();

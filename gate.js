@@ -20,8 +20,9 @@
       '<div class="gate-card">' +
         '<h2>Enter access code</h2>' +
         '<p class="sub">This beta is invite-only. Enter the code you were given to continue.</p>' +
-        '<div class="field">' +
+        '<div class="field gate-input-wrap">' +
           '<input type="password" id="gateInput" placeholder="Access code" autocomplete="off">' +
+          '<button type="button" id="gateToggle" class="gate-toggle">Show</button>' +
         '</div>' +
         '<p class="error-msg" id="gateError">That code didn\'t match. Try again.</p>' +
         '<button type="button" id="gateSubmit" class="btn-primary">Unlock</button>' +
@@ -41,6 +42,14 @@
         error.classList.add('show');
       }
     }
+
+    var toggleBtn = document.getElementById('gateToggle');
+    toggleBtn.addEventListener('click', function () {
+      var showing = input.type === 'text';
+      input.type = showing ? 'password' : 'text';
+      toggleBtn.textContent = showing ? 'Show' : 'Hide';
+      input.focus();
+    });
 
     submitBtn.addEventListener('click', attempt);
     input.addEventListener('keydown', function (e) {
