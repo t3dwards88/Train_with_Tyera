@@ -4,7 +4,7 @@
   var customFastField = document.getElementById('customFastField');
   var customFastInput = document.getElementById('customFast');
   var errMsg = document.getElementById('errMsg');
-  var results = document.getElementById('results');
+  var results = document.getElementById('calcResults');
 
   fastingSelect.addEventListener('change', function () {
     customFastField.hidden = fastingSelect.value !== 'custom';
